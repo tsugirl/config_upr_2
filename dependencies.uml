@@ -1,0 +1,3 @@
+@startuml
+"Root" --> "org.apache.maven:maven-plugin-api"
+@enduml
