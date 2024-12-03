@@ -1,3 +1,15 @@
 @startuml
-"Root" --> "org.slf4j:slf4j-api"
+"Root" --> "org.apache.maven:maven-plugin-api:4.0.0-rc-1"
+"Root" --> "org.apache.maven:maven-api-xml:unspecified"
+"Root" --> "org.apache.maven:maven-api-meta:unspecified"
+"Root" --> "org.apache.maven:maven-api-plugin:unspecified"
+"Root" --> "org.apache.maven:maven-xml:unspecified"
+"Root" --> "org.apache.maven:maven-model:unspecified"
+"Root" --> "org.apache.maven:maven-artifact:unspecified"
+"Root" --> "com.fasterxml.woodstox:woodstox-core:unspecified"
+"Root" --> "org.codehaus.woodstox:stax2-api:unspecified"
+"Root" --> "org.eclipse.sisu:org.eclipse.sisu.plexus:unspecified"
+"Root" --> "org.codehaus.plexus:plexus-classworlds:unspecified"
+"Root" --> "org.apache.maven.resolver:maven-resolver-api:unspecified"
+"Root" --> "org.junit.jupiter:junit-jupiter-api:unspecified"
 @enduml

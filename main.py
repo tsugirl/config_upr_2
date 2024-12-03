@@ -57,19 +57,20 @@ def parse_pom_file(pom_path, repository_path, processed=None):
                 f"{artifact_id}-{version}.pom"
             )
 
-            # рекурсивный вызов для парсинга зависимостей этой зависимости
+            # рекурсивный вызов для парсинга транзитивных зависимостей
             if os.path.exists(dependency_pom_path):
                 dependencies.extend(parse_pom_file(dependency_pom_path, repository_path, processed))
     
     return dependencies
 
 
+
 def generate_plantuml_graph(dependencies, output_path):
-    """Генерация графа PlantUML."""
     with open(output_path, 'w') as file:
         file.write("@startuml\n")
         for dep in dependencies:
-            file.write(f'"Root" --> "{dep}"\n')
+            group_id, artifact_id, version = dep.split(":")
+            file.write(f'"Root" --> "{group_id}:{artifact_id}:{version}"\n')
         file.write("@enduml\n")
     print(f"Graph saved to {output_path}")
 
@@ -81,8 +82,11 @@ def main():
     pom_path = config["pom_path"]
     output_path = config["output_path"]
 
-    # парсинг зависимостей
-    dependencies = parse_dependencies(pom_path)
+    # указание пути к локальному Maven-репозиторию
+    repository_path = os.path.expanduser("~/.m2/repository")
+
+    # рекурсивный парсинг зависимостей
+    dependencies = parse_pom_file(pom_path, repository_path)
 
     # генерация графа PlantUML
     generate_plantuml_graph(dependencies, output_path)
@@ -90,6 +94,5 @@ def main():
     # печать на экран
     with open(output_path, 'r') as file:
         print(file.read())
-
 if __name__ == "__main__":
     main()
